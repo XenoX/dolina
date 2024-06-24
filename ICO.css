@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+}
+
+body {
+    font-family: arpona, serif;
+    margin: 40px;
+    display: flex;
+    align-items: start;
+    background-color: black;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.2em;
+    width: 97%;
+}
+
+p {
+    font-size: 1.1em;
+}
+
+.information-block {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: white;
+}
+
+.preseed-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #D0FFA1;
+    width: 35%;
+    text-align: center;
+    border-radius: 50px;
+    border: 2px solid #67CE00;
+    text-align: center;
+    color: #468B00;
+}
+
+.preseed-ellipse {
+    font-weight: bold;
+    margin-left: 7px;
+    margin-right: 5px;
+    padding: 4px;
+    height: 3px;
+    width: 3px;
+    border-radius: 50%;
+    background-color: #80FF00;
+    border: 3px solid #468B00;
+}
+
+.information-block_buttons {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    gap: 15px;
+}
+
+.information-block_buttons a {
+    padding: 8px;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+}
+
+.Tokenomics_button {
+    background-color: #00FFE6;
+    border: 3px solid #009B8C;
+}
+
+.smart-contrat_button {
+    background-color: #ECE2CF;
+    border: 3px solid #BAA884;
+}
+
+
+.wallet-block {
+    width: 90%;
+    z-index: 1;
+    position: relative;
+    background-color: #ECE2CF;
+    border: 6px solid #BAA884;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
+    height: 520px;
+}
+
+.wallet-block_token-img {
+    z-index: -1;
+    position: absolute;
+    width: 90%;
+    height: 100%;
+}
+
+.wallet-block_img {
+    position: absolute;
+}
+
+.wallet-block_img-bottom-right {
+    bottom: 10px;
+    right: 10px;
+}
+
+.wallet-block_img-bottom-left {
+    bottom: 10px;
+    left: 10px;
+}
+
+.wallet-block_img-top-right {
+    top: 10px;
+    right: 10px;
+}
+
+.wallet-block_img-top-left {
+    top: 10px;
+    left: 10px;
+}
+
+
+.wallet-block_prices {
+    display: flex;
+    width: 80%;
+}
+
+.prices-wrapper {
+    padding: 8px;
+    text-align: center;
+    width: 100%;
+    border: 2px solid #5E594B;
+}
+
+.objectif-bar {
+    background-color: #00FFE6;
+    padding: 10px;
+    width: 75%
+}
+
+.wallet-connexion_text {
+    font-size: 2.2em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.wallet-connexion_button {
+    font-size: 1.5em;
+    padding: 7px;
+    width: 50%;
+    background-color: #00FFE6;
+    border: 2px solid black;
+    box-shadow: inset 0px 0px 3px #046057;
+}
