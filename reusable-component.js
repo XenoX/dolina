@@ -23,7 +23,7 @@ async function fetchComponents() {
 
 async function injectComponents() {
   const components = await fetchComponents();
-  const body = document.body; // Create footer element and inject HTML after closing body tag for "footer"
+  const body = document.body;
 
   const footerElement = document.createElement("footer");
   footerElement.innerHTML = components.footerHTML;

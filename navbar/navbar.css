@@ -31,6 +31,11 @@ ul a {
   gap: 4px;
   color: white;
   text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+ul a:hover {
+  color: #00ffe6;
 }
 
 .redirection_arrow {
