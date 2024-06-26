@@ -1,12 +1,12 @@
 * {
+  font-family: arpona, serif;
   margin: 0;
 }
 
 body {
   position: relative;
-  padding-top: 60px;
-  padding-bottom: 60px;
-  font-family: arpona, serif;
+  padding-top: 40px;
+  padding-bottom: 30px;
   margin: 40px;
   display: flex;
   align-items: start;
@@ -32,7 +32,7 @@ p {
 }
 
 .information-block {
-  width: 50%;
+  width: 47%;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -88,8 +88,11 @@ p {
   border: 3px solid #baa884;
 }
 
+.wallet-block-and-buttons-wrapper {
+  width: 53%;
+}
+
 .wallet-block {
-  width: 90%;
   z-index: 1;
   position: relative;
   background-color: #ece2cf;
@@ -99,7 +102,6 @@ p {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  width: 50%;
   height: 520px;
 }
 
@@ -164,10 +166,83 @@ p {
 }
 
 .wallet-connexion_button {
+  cursor: pointer;
   font-size: 1.5em;
   padding: 7px;
   width: 50%;
   background-color: #00ffe6;
   border: 2px solid black;
   box-shadow: inset 0px 0px 3px #046057;
+}
+
+.connected-wallet_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  visibility: hidden;
+}
+
+.connected-wallet_buttons button {
+  cursor: pointer;
+  padding: 13px;
+  margin-top: 35px;
+  width: 35%;
+  color: white;
+  background-color: transparent;
+  border: 3px solid #5e594b;
+  font-size: 1em;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.wallet-transaction_investment {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px;
+  width: 300px;
+}
+
+.input {
+  padding: ;
+  height: 45px;
+  font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2a2820;
+  color: white;
+}
+
+.choose-crypto-input_right-side_wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.current-crypto-value {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.down-arrow-img {
+  cursor: pointer;
+  padding: 0px 16px;
+}
+
+.wallet-transaction_investment {
+  background-color: #c1b69b;
+}
+
+.choose-crypto-input_right-side_wrapper .line {
+  height: 100%;
+  width: 1px;
+  background-color: #5e594b;
+  margin-left: 15px;
+}
+
+.current-crypto-value_value-font-style {
+  font-size: 0.7em;
+  color: #c1b69b;
 }
