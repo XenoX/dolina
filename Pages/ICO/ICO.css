@@ -31,7 +31,7 @@ p {
   font-size: 1.1em;
 }
 
-.information-block {
+.information__section {
   width: 47%;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@ p {
   color: white;
 }
 
-.preseed-wrapper {
+.information__section__preseed--wrapper {
   display: flex;
   align-items: center;
   background-color: #d0ffa1;
@@ -51,7 +51,7 @@ p {
   color: #468b00;
 }
 
-.preseed-ellipse {
+.information__section__preseed__circle {
   font-weight: bold;
   margin-left: 7px;
   margin-right: 5px;
@@ -63,14 +63,14 @@ p {
   border: 3px solid #468b00;
 }
 
-.information-block_buttons {
+.information__section__buttons {
   display: flex;
   flex-direction: column;
   width: 45%;
   gap: 15px;
 }
 
-.information-block_buttons a {
+.information__section__buttons a {
   padding: 8px;
   font-size: 1.2em;
   text-decoration: none;
@@ -78,21 +78,21 @@ p {
   text-align: center;
 }
 
-.Tokenomics_button {
+.information__section__buttons--blue {
   background-color: #00ffe6;
   border: 3px solid #009b8c;
 }
 
-.smart-contrat_button {
+.information__section__buttons--beige {
   background-color: #ece2cf;
   border: 3px solid #baa884;
 }
 
-.wallet-block-and-buttons-wrapper {
+.invest__section__container {
   width: 53%;
 }
 
-.wallet-block {
+.invest__section {
   z-index: 1;
   position: relative;
   background-color: #ece2cf;
@@ -105,67 +105,104 @@ p {
   height: 520px;
 }
 
-.wallet-block_stars-img {
+.invest__section__stars-img {
   position: absolute;
   top: -74px;
   right: -46px;
 }
 
-.wallet-block_token-img {
+.invest__section__token-img {
   z-index: -1;
   position: absolute;
   height: 100%;
 }
 
-.wallet-block_corner-imgs {
+.invest__section__corner-imgs {
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.invest__section__corner-imgs img {
   position: absolute;
 }
 
-.wallet-block_corner-img_bottom-right {
+.invest__section__corner-img--bottom-right {
   bottom: 10px;
   right: 10px;
 }
 
-.wallet-block_corner-img_bottom-left {
+.invest__section__corner-img--bottom-left {
   bottom: 10px;
   left: 10px;
 }
 
-.wallet-block_corner-img_top-right {
+.invest__section__corner-img--top-right {
   top: 10px;
   right: 10px;
 }
 
-.wallet-block_corner-img_top-left {
+.invest__section__corner-img--top-left {
   top: 10px;
   left: 10px;
 }
 
-.wallet-block_prices {
+.invest__section__prices {
   display: flex;
   width: 90%;
 }
 
-.prices-wrapper {
+.invest__section__prices__wrapper {
   padding: 8px;
   text-align: center;
   width: 100%;
-  border: 2px solid #5e594b;
+  border: 1px solid #5e594b;
 }
 
-.objectif-bar {
+.invest__section__prices__info {
+  font-size: 0.8em;
+}
+
+.invest__section__prices__number {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.invest__section__objectif {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.invest__section__objectif-bar {
+  border: 2px solid #2a2820;
   background-color: #00ffe6;
   padding: 10px;
   width: 83%;
 }
 
-.wallet-connexion_text {
+.invest__section__objectif-bar__statut {
+  color: #5e594b;
+  font-weight: bold;
+}
+
+.invest__section__objectif-bar__statut span {
+  font-size: 0.9em;
+  font-weight: normal;
+  margin-right: 5px;
+  color: #5e594b;
+}
+
+.invest__section__connect-wallet__text {
   font-size: 2.2em;
   text-align: center;
   font-weight: bold;
 }
 
-.wallet-connexion_button {
+.invest__section__connect-wallet__button {
   cursor: pointer;
   font-size: 1.5em;
   padding: 7px;
@@ -175,14 +212,14 @@ p {
   box-shadow: inset 0px 0px 3px #046057;
 }
 
-.connected-wallet_buttons {
+.invest__section__buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
   visibility: hidden;
 }
 
-.connected-wallet_buttons button {
+.invest__section__buttons button {
   cursor: pointer;
   padding: 13px;
   margin-top: 35px;
@@ -195,54 +232,167 @@ p {
   letter-spacing: 0.1em;
 }
 
-.wallet-transaction_investment {
+.invest__section__connected-wallet {
+  display: flex;
+  width: 90%;
+}
+
+.connected-wallet__token-purchase {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 30px;
-  width: 300px;
+  padding: 15px;
+  width: 50%;
 }
 
 .input {
-  padding: ;
-  height: 45px;
+  height: 50px;
   font-size: 1.1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #2a2820;
-  color: white;
+  color: #e7e3db;
 }
 
-.choose-crypto-input_right-side_wrapper {
+.input__field {
+  color: #e7e3db;
+  width: 100%;
+  height: 45px;
+  border: none;
+  background-color: #2a2820;
+  font-weight: bold;
+  font-size: 1.4em;
+  padding-left: 15px;
+}
+
+.input__field:focus {
+  outline: none;
+}
+
+.input p {
+  margin-left: 15px;
+}
+
+.connected-wallet__select-crypto__wrapper,
+.connected-wallet__money-to-invest__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.select-crypto__input__wrapper {
   display: flex;
   align-items: center;
   height: 100%;
 }
 
-.current-crypto-value {
+.select-crypto__input {
+  font-size: 1.2em;
+  letter-spacing: 0.05em;
+}
+
+.select-crypto__input__current-value__wrapper {
   display: flex;
   flex-direction: column;
   align-items: end;
+  gap: 2px;
 }
 
-.down-arrow-img {
+.select-crypto__input__down-arrow {
   cursor: pointer;
-  padding: 0px 16px;
+  padding: 0px 18px;
 }
 
-.wallet-transaction_investment {
+.connected-wallet__token-purchase {
   background-color: #c1b69b;
 }
 
-.choose-crypto-input_right-side_wrapper .line {
+.select-crypto__input__wrapper .line {
   height: 100%;
   width: 1px;
   background-color: #5e594b;
   margin-left: 15px;
 }
 
-.current-crypto-value_value-font-style {
+.select-crypto__input__current-value--size,
+.money-to-invest__input__wrapper--size {
   font-size: 0.7em;
+  color: #c1b69b;
+}
+
+.money-to-invest__input p {
+  font-size: 1.4em;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+}
+
+.money-to-invest__input__wrapper {
+  height: 100%;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.money-to-invest__input__wrapper__button {
+  cursor: pointer;
+  font-size: 1em;
+  padding: 7px;
+  margin: 4px;
+  background-color: #5e594b;
+  color: #c1b69b;
+}
+
+.connected-wallet__token-amount {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 50%;
+  background-color: #2a2820;
+  color: #e7e3db;
+}
+.token-amount__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.token-amount__wrapper p {
+  margin-top: 7px;
+  font-family: ferryman, sans-serif;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #00ffe6;
+}
+
+.token-amount__max-amount__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.token-amount__max-amount__info {
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  color: #c1b69b;
+  font-family: ferryman, sans-serif;
+}
+
+.token-amount__max-amount__line {
+  height: 2px;
+  width: 80%;
+  background-color: #ece2cf;
+}
+
+.token-amount__max-amount {
+  margin-top: 7px;
+  font-family: ferryman, sans-serif;
+  font-size: 2.5em;
+  font-weight: bold;
   color: #c1b69b;
 }

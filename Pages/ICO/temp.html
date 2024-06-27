@@ -6,38 +6,56 @@
     <link rel="stylesheet" href="./ICO.css" />
   </head>
   <body>
-    <div>
-      <div class="wallet-transaction_investment">
-        <div class="choose-crypto_wrapper">
-          <p>Vous investissez en :</p>
-          <div class="choose-crypto-input input">
-            <p>Matic</p>
-            <div class="choose-crypto-input_right-side_wrapper">
-              <div class="current-crypto-value">
-                <span>1921</span>
-                <span>≈$1920</span>
-              </div>
-              <span class="line"></span>
-              <span class="down-arrow-img">
-                <img
-                  src="../../assets/images/down-arrow-img.png"
-                  alt="flèche blanche pointant vers le bas"
-              /></span>
+    <div class="connected-wallet__token-purchase">
+      <div class="connected-wallet__select-crypto__wrapper">
+        <p>Vous investissez en :</p>
+        <div class="select-crypto__input input">
+          <p>Matic</p>
+          <div class="select-crypto__input__wrapper">
+            <div class="select-crypto__input__current-value__wrapper">
+              <span>1921</span>
+              <span class="select-crypto__input__current-value--size"
+                >≈$1920</span
+              >
             </div>
-          </div>
-        </div>
-        <div class="choose-amount_wrapper">
-          <p>Montant investi :</p>
-          <div class="choose-amount_input input">
-            <p>0</p>
-            <div class="choose-amount_input_right-side_wrapper">
-              <span>≈150</span>
-              <span>MAX</span>
-            </div>
+            <span class="line"></span>
+            <span class="select-crypto__input__down-arrow">
+              <img
+                src="../../assets/images/down-arrow-img.png"
+                alt="flèche blanche pointant vers le bas"
+            /></span>
           </div>
         </div>
       </div>
-      <div class="wallet-transaction_token-rewards"></div>
+      <div class="connected-wallet__money-to-invest__wrapper">
+        <p>Montant investi :</p>
+        <div class="money-to-invest__input input">
+          <input
+            type="number"
+            value="0"
+            class="money-to-invest__input__field"
+          />
+          <div class="money-to-invest__input__wrapper">
+            <span class="money-to-invest__input__wrapper--size">≈150</span>
+            <button class="money-to-invest__input__wrapper__button">MAX</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="connected-wallet__token-amount">
+      <p>Vous recevez en $ANZ</p>
+      <div class="token-amount__wrapper">
+        <p>0</p>
+        <img
+          src="../../assets/images/TOKEN-color.png"
+          alt="Logo du jeux Anazir sous forme d'une piece de monnaie"
+        />
+      </div>
+      <div class="token-amount__max-amount__wrapper">
+        <span class="token-amount__max-amount__line"></span>
+        <p class="token-amount__max-amount">15 000 000</p>
+        <p class="token-amount__max-amount__info">Token alloués pressed</p>
+      </div>
     </div>
   </body>
 </html>
