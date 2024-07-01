@@ -204,8 +204,9 @@ p {
 
 .invest__section__connect-wallet__button {
   cursor: pointer;
-  font-size: 1.5em;
-  padding: 7px;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 10px;
   width: 50%;
   background-color: #00ffe6;
   border: 2px solid black;
@@ -266,30 +267,49 @@ p {
   padding-left: 15px;
 }
 
+.select-crypto__select {
+  font-size: 1.1em;
+  border-radius: none;
+  border: none;
+  appearance: none;
+  height: 100%;
+  width: 80%;
+  background-color: #2a2820;
+  color: #e7e3db;
+}
+
+option {
+  width: 80%;
+  border-radius: none;
+}
+
 .input__field:focus {
   outline: none;
 }
 
-.input p {
-  margin-left: 15px;
-}
-
-.connected-wallet__select-crypto__wrapper,
-.connected-wallet__money-to-invest__wrapper {
+.connected-wallet__select-crypto__wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  position: relative;
 }
 
 .select-crypto__input__wrapper {
+  background-color: #2a2820;
   display: flex;
   align-items: center;
+  position: absolute;
+  right: 0px;
   height: 100%;
 }
 
 .select-crypto__input {
+  padding-left: 10px;
+  appearance: none;
+  width: 100%;
   font-size: 1.2em;
   letter-spacing: 0.05em;
+}
+.select-crypto__input:focus {
+  outline: none;
 }
 
 .select-crypto__input__current-value__wrapper {
@@ -297,6 +317,7 @@ p {
   flex-direction: column;
   align-items: end;
   gap: 2px;
+  color: #e7e3db;
 }
 
 .select-crypto__input__down-arrow {
@@ -321,6 +342,11 @@ p {
   color: #c1b69b;
 }
 
+.connected-wallet__money-to-invest__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 .money-to-invest__input p {
   font-size: 1.4em;
   letter-spacing: 0.05em;
@@ -395,4 +421,48 @@ p {
   font-size: 2.5em;
   font-weight: bold;
   color: #c1b69b;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.select-crypto__input__dropdown-content {
+  display: none;
+}
+
+.show {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  gap: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 100%;
+  left: 0px;
+  top: 50px;
+  background-color: #2a2820;
+  visibility: visible;
+  z-index: 1;
+}
+
+.select-crypto__input__dropdown-content li {
+  cursor: pointer;
+  color: #e7e3db;
+  text-align: center;
+  padding: 12px 0px;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.select-crypto__input__dropdown-content li:hover {
+  background-color: #353430;
+}
+
+.rotate {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
 }

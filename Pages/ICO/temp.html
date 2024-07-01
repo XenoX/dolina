@@ -8,32 +8,38 @@
   <body>
     <div class="connected-wallet__token-purchase">
       <div class="connected-wallet__select-crypto__wrapper">
-        <p>Vous investissez en :</p>
         <div class="select-crypto__input input">
-          <p>Matic</p>
-          <div class="select-crypto__input__wrapper">
-            <div class="select-crypto__input__current-value__wrapper">
-              <span>1921</span>
-              <span class="select-crypto__input__current-value--size"
-                >≈$1920</span
-              >
-            </div>
-            <span class="line"></span>
-            <span class="select-crypto__input__down-arrow">
-              <img
-                src="../../assets/images/down-arrow-img.png"
-                alt="flèche blanche pointant vers le bas"
-            /></span>
+          <div class="input">Matic</div>
+          <ul class="select-crypto__input__dropdown-content">
+            <li>Matic</li>
+            <li>USDC</li>
+          </ul>
+        </div>
+        <div class="select-crypto__input__wrapper">
+          <div class="select-crypto__input__current-value__wrapper">
+            <span>1921</span>
+            <span class="select-crypto__input__current-value--size"
+              >≈$1920</span
+            >
           </div>
+          <span class="line"></span>
+          <span class="select-crypto__input__down-arrow">
+            <img
+              src="../../assets/images/down-arrow-img.png"
+              alt="flèche blanche pointant vers le bas"
+              class="select-crypto__input__dropdown-arrow"
+          /></span>
         </div>
       </div>
+
       <div class="connected-wallet__money-to-invest__wrapper">
-        <p>Montant investi :</p>
+        <label for="money-to-invest">Montant investi :</label>
         <div class="money-to-invest__input input">
           <input
             type="number"
             value="0"
-            class="money-to-invest__input__field"
+            id="money-to-invest"
+            class="input__field"
           />
           <div class="money-to-invest__input__wrapper">
             <span class="money-to-invest__input__wrapper--size">≈150</span>
