@@ -1,8 +1,11 @@
+import { ethers } from "ethers";
+import { Web3 } from "web3";
 const connectWalletButton = document.querySelector(
   ".invest__section__connect-wallet__button"
 );
-import { ethers } from "../../node_modules/ethers/dist/ethers.js";
-//import { Web3 } from "web3";
+const connectWalletErrorMessage = document.querySelector(
+  ".invest__section__connect-wallet__error-message"
+);
 
 //-------------
 
@@ -24,7 +27,6 @@ async function fetchCryptoValue() {
   }
 }
 //------------
-// Fonction pour récupérer le solde du compte connecté
 
 // Gestionnaire d'événements pour le bouton de connexion du portefeuille
 connectWalletButton.addEventListener("click", async () => {
@@ -33,24 +35,40 @@ connectWalletButton.addEventListener("click", async () => {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-
       if (accounts.length > 0) {
         const connectedAddress = accounts[0];
-        console.log("Connected account:", connectedAddress);
 
+        getBalance(connectedAddress); // Call the function with the connected address
         updateUserInterface();
         addTokenPurchaseSection();
-        addInputEventListeners();
+        changeInvestButtonText();
         fetchCryptoValue();
+        e.preventdefault();
       }
     } catch (error) {
       console.error("User denied account access:", error);
     }
   } else {
-    console.error("MetaMask is not installed.");
+    connectWalletErrorMessage.innerHTML = "MetaMask n'est pas installé";
   }
 });
+
 //--------------
+// Fonction pour récupérer le solde du compte connecté
+
+async function getBalance(address) {
+  try {
+    const balance = await window.ethereum.request({
+      method: "eth_getBalance",
+      params: [address, "latest"],
+    });
+    const balanceInEther = parseInt(balance, 16) / 1e18;
+    console.log("Account balance:", balanceInEther, "ETH");
+  } catch (error) {
+    console.error("Error getting balance:", error);
+  }
+}
+
 //--------------
 function updateUserInterface() {
   const walletInvestSection = document.querySelector(
@@ -66,6 +84,7 @@ function updateUserInterface() {
 
   connectWalletButton.textContent = "TICKET MINIMUM : 500$";
 }
+
 //-------------
 function addTokenPurchaseSection() {
   const walletInvestSection = document.querySelector(
@@ -78,7 +97,7 @@ function addTokenPurchaseSection() {
           <p class="select-crypto__input__select">Matic</p>
           <ul class="select-crypto__input__dropdown-content">
             <li>Matic</li>
-            <li>USDC</li>
+            <li>Usdc</li>
           </ul>
         </div>
         <div class="select-crypto__input__wrapper">
@@ -142,6 +161,7 @@ function addTokenPurchaseSection() {
   const dropdownContent = document.querySelector(
     ".select-crypto__input__dropdown-content"
   );
+
   const downArrow = document.querySelector(
     ".select-crypto__input__dropdown-arrow"
   );
@@ -155,13 +175,6 @@ function addTokenPurchaseSection() {
 
   cryptoInput.addEventListener("click", toggleDropdown);
 
-  // Close dropdown when clicking outside (using event delegation) //A FAIRE
-  document.addEventListener("click", (event) => {
-    if (!cryptoDropdown.contains(event.target) && isOpen) {
-      toggleDropdown();
-    }
-  });
-
   dropdownContent.addEventListener("click", (event) => {
     const selectedOption = event.target.textContent;
     InputSelectedCrypto.textContent = selectedOption;
@@ -170,7 +183,7 @@ function addTokenPurchaseSection() {
 
 //----------------------
 
-function addInputEventListeners() {
+function changeInvestButtonText() {
   const moneyInvestInput = document.querySelector(".input__field");
 
   moneyInvestInput.addEventListener("input", () => {
@@ -183,42 +196,4 @@ function addInputEventListeners() {
     }
   });
 }
-//----------------
-
-function disconnectUserWallet() {
-  // Remove event listener for account changes
-  window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
-
-  // Reset connected address
-  connectedAddress = null;
-
-  // Reset user interface
-  const walletInvestSection = document.querySelector(
-    ".invest__section__connected-wallet"
-  );
-  walletInvestSection.classList.remove("invest__section__connected-wallet");
-  walletInvestSection.classList.add("invest__section__connect-wallet__text");
-  walletInvestSection.innerHTML = "Connectez votre wallet pour investir";
-
-  const connectedWalletButtons = document.querySelector(
-    ".invest__section__buttons"
-  );
-  connectedWalletButtons.style.visibility = "hidden";
-
-  connectWalletButton.textContent = "Connectez votre wallet";
-
-  // Force MetaMask a redemander un connexion
-  connectWalletButton.addEventListener("click", async () => {
-    window.ethereum
-      .request({
-        method: "wallet_requestPermissions",
-        params: [{ eth_accounts: {} }],
-      })
-      .then(() => {
-        console.log("Permissions updated");
-      })
-      .catch((error) => {
-        console.error("Error updating permissions:", error);
-      });
-  });
-}
+//---------------

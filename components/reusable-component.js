@@ -1,16 +1,17 @@
 async function fetchComponents() {
-  const footerHTML = await fetch("../../footer/footer.html").then((response) =>
-    response.text()
+  const footerHTML = await fetch("../../components/footer/footer.html").then(
+    (response) => response.text()
   );
-  const footerCSS = await fetch("../../footer/footer.css").then((response) => {
-    response.text();
-  });
+  const footerCSS = await fetch("../../components/footer/footer.css").then(
+    (response) => response.text()
+  );
 
-  const navbarHTML = await fetch("../../navbar/navbar.html").then((response) =>
-    response.text()
+  // Assuming navbar is also in the components directory:
+  const navbarHTML = await fetch("../../components/navbar/navbar.html").then(
+    (response) => response.text()
   );
-  const navbarCSS = await fetch("../../navbar/navbar.css").then((response) =>
-    response.text()
+  const navbarCSS = await fetch("../../components/navbar/navbar.css").then(
+    (response) => response.text()
   );
 
   return {
