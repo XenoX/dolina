@@ -1,10 +1,12 @@
 const connectWalletButton = document.querySelector(
   ".invest__section__connect-wallet__button"
 );
+import { ethers } from "../../node_modules/ethers/dist/ethers.js";
+//import { Web3 } from "web3";
 
-const disconnectWalletButton = document.querySelector(
-  ".invest__section__buttons__disconnect"
-);
+//-------------
+
+//
 
 async function fetchCryptoValue() {
   try {
@@ -21,7 +23,10 @@ async function fetchCryptoValue() {
     console.error("Erreur lors de la récupération des données :", error);
   }
 }
+//------------
+// Fonction pour récupérer le solde du compte connecté
 
+// Gestionnaire d'événements pour le bouton de connexion du portefeuille
 connectWalletButton.addEventListener("click", async () => {
   if (typeof window.ethereum !== "undefined") {
     try {
@@ -33,11 +38,7 @@ connectWalletButton.addEventListener("click", async () => {
         const connectedAddress = accounts[0];
         console.log("Connected account:", connectedAddress);
 
-        // Obtenir le solde du compte
-        const balance = await getAccountBalance(connectedAddress);
-        console.log("Account balance:", balance);
-
-        updateUserInterface(connectedAddress, balance);
+        updateUserInterface();
         addTokenPurchaseSection();
         addInputEventListeners();
         fetchCryptoValue();
@@ -49,29 +50,8 @@ connectWalletButton.addEventListener("click", async () => {
     console.error("MetaMask is not installed.");
   }
 });
-
-async function getAccountBalance(address) {
-  try {
-    // Assurez-vous que ethers est disponible globalement
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const balance = await provider.getBalance(address);
-    // Convertir le solde de Wei en Ether
-    const balanceInEth = ethers.utils.formatEther(balance);
-    return balanceInEth;
-  } catch (error) {
-    console.error("Error fetching account balance:", error);
-    return null;
-  }
-}
-
-function updateUserInterface(address, balance) {
-  const accountInfoDiv = document.getElementById("accountInfo");
-  accountInfoDiv.innerHTML = `
-    <p>Connected account: ${address}</p>
-    <p>Account balance: ${balance} ETH</p>
-  `;
-}
-
+//--------------
+//--------------
 function updateUserInterface() {
   const walletInvestSection = document.querySelector(
     ".invest__section__connect-wallet__text"
@@ -86,7 +66,7 @@ function updateUserInterface() {
 
   connectWalletButton.textContent = "TICKET MINIMUM : 500$";
 }
-
+//-------------
 function addTokenPurchaseSection() {
   const walletInvestSection = document.querySelector(
     ".invest__section__connected-wallet"
@@ -95,7 +75,7 @@ function addTokenPurchaseSection() {
    <div class="connected-wallet__token-purchase">
       <div class="connected-wallet__select-crypto__wrapper">
         <div class="select-crypto__input input">
-          <div class="input">Matic</div>
+          <p class="select-crypto__input__select">Matic</p>
           <ul class="select-crypto__input__dropdown-content">
             <li>Matic</li>
             <li>USDC</li>
@@ -150,11 +130,15 @@ function addTokenPurchaseSection() {
       </div>
     </div>
     </div>`;
+  //--------
 
-  const cryptoDropdown = document.querySelector(
+  // Fonctionnement de l'input select
+  const cryptoInput = document.querySelector(
     ".connected-wallet__select-crypto__wrapper"
   );
-  const cryptoInput = document.querySelector(".select-crypto__input");
+  const InputSelectedCrypto = document.querySelector(
+    ".select-crypto__input__select"
+  );
   const dropdownContent = document.querySelector(
     ".select-crypto__input__dropdown-content"
   );
@@ -162,33 +146,29 @@ function addTokenPurchaseSection() {
     ".select-crypto__input__dropdown-arrow"
   );
 
-  let isOpen = false; // Track dropdown visibility
+  function toggleDropdown() {
+    let isOpen = false;
+    isOpen = !isOpen;
+    dropdownContent.classList.toggle("show");
+    downArrow.classList.toggle("rotate");
+  }
 
-  cryptoDropdown.addEventListener("click", function (event) {
-    if (event.target === cryptoInput || event.target === downArrow) {
-      isOpen = !isOpen;
+  cryptoInput.addEventListener("click", toggleDropdown);
 
-      if (isOpen) {
-        dropdownContent.classList.add("show");
-        downArrow.classList.add("rotate");
-      } else {
-        dropdownContent.classList.remove("show");
-        downArrow.classList.remove("rotate");
-      }
-    } else {
-      if (isOpen) {
-        isOpen = false;
-        dropdownContent.classList.remove("show");
-        downArrow.classList.remove("rotate");
-      }
+  // Close dropdown when clicking outside (using event delegation) //A FAIRE
+  document.addEventListener("click", (event) => {
+    if (!cryptoDropdown.contains(event.target) && isOpen) {
+      toggleDropdown();
     }
   });
 
-  dropdownContent.addEventListener("click", function (event) {
+  dropdownContent.addEventListener("click", (event) => {
     const selectedOption = event.target.textContent;
-    cryptoInput.textContent = selectedOption;
+    InputSelectedCrypto.textContent = selectedOption;
   });
 }
+
+//----------------------
 
 function addInputEventListeners() {
   const moneyInvestInput = document.querySelector(".input__field");
@@ -203,6 +183,7 @@ function addInputEventListeners() {
     }
   });
 }
+//----------------
 
 function disconnectUserWallet() {
   // Remove event listener for account changes
