@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import { Web3 } from "web3";
+
 const connectWalletButton = document.querySelector(
   ".invest__section__connect-wallet__button"
 );
@@ -19,13 +20,27 @@ async function fetchCryptoValue() {
     ]);
 
     const matic = await maticResponse.json();
-    const usdc = await usdcResponse.json();
+    const maticValue = parseFloat(matic.data.priceUsd);
 
-    console.log(matic);
+    const moneyInvestInput = document.querySelector(".input__field");
+    const currentValueElement = document.querySelector(
+      ".money-to-invest__input__wrapper--size"
+    );
+
+    const updateValue = () => {
+      const inputValue = parseFloat(moneyInvestInput.value) || 0;
+      const calculatedValue = (maticValue * inputValue).toFixed(0);
+      currentValueElement.textContent = `≈$${calculatedValue}`;
+    };
+
+    moneyInvestInput.addEventListener("input", updateValue);
   } catch (error) {
     console.error("Erreur lors de la récupération des données :", error);
   }
 }
+
+//-----------
+
 //------------
 
 // Gestionnaire d'événements pour le bouton de connexion du portefeuille
@@ -43,7 +58,6 @@ connectWalletButton.addEventListener("click", async () => {
         addTokenPurchaseSection();
         changeInvestButtonText();
         fetchCryptoValue();
-        e.preventdefault();
       }
     } catch (error) {
       console.error("User denied account access:", error);
@@ -127,7 +141,7 @@ function addTokenPurchaseSection() {
             class="input__field"
           />
           <div class="money-to-invest__input__wrapper">
-            <span class="money-to-invest__input__wrapper--size">≈150</span>
+            <span class="money-to-invest__input__wrapper--size">≈$0</span>
             <button class="money-to-invest__input__wrapper__button">MAX</button>
           </div>
         </div>
