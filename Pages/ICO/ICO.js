@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import { Web3 } from "web3";
 
 const connectWalletButton = document.querySelector(
   ".invest__section__connect-wallet__button"
