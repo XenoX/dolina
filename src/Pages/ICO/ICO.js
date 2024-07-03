@@ -1,5 +1,3 @@
-import { ethers } from "ethers";
-
 const connectWalletButton = document.querySelector(
   ".invest__section__connect-wallet__button"
 );
