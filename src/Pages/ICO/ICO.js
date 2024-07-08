@@ -1,3 +1,11 @@
+import Web3 from "web3";
+let web3;
+let userAccount;
+let chainId;
+let formattedBalance;
+let calculatedValue;
+let calculatedValueOfBalance;
+
 const connectWalletButton = document.querySelector(
   ".invest__section__connect-wallet__button"
 );
@@ -5,9 +13,15 @@ const connectWalletErrorMessage = document.querySelector(
   ".invest__section__connect-wallet__error-message"
 );
 
-//-------------
+const walletInvestSection = document.querySelector(
+  ".invest__section__connect-wallet__text"
+);
+const connectedWalletButtons = document.querySelector(
+  ".invest__section__buttons"
+);
 
-//
+//-------------
+//Fonction qui récupère la valeur en dollards et fait le calcul
 
 async function fetchCryptoValue() {
   try {
@@ -18,91 +32,163 @@ async function fetchCryptoValue() {
 
     const matic = await maticResponse.json();
     const maticValue = parseFloat(matic.data.priceUsd);
+    const usdc = await usdcResponse.json();
+    const usdcValue = parseFloat(usdc.data.priceUsd);
 
-    const moneyInvestInput = document.querySelector(".input__field");
     const currentValueElement = document.querySelector(
       ".money-to-invest__input__wrapper--size"
     );
+    const accountBalanceValueUsdConvert = document.querySelector(
+      ".select-crypto__input__balance-value-usd"
+    );
 
-    const updateValue = () => {
-      const inputValue = parseFloat(moneyInvestInput.value) || 0;
-      const calculatedValue = (maticValue * inputValue).toFixed(0);
+    // Calcul la valeur en dollards du nombre tapé dans l'input
+    const inputUsdValue = () => {
+      const selectedCrypto = document.querySelector(
+        ".select-crypto__input__select"
+      ).textContent;
+      const inputValue =
+        parseFloat(document.querySelector(".input__field").value) || 0;
+
+      if (selectedCrypto === "Matic") {
+        calculatedValue = (maticValue * inputValue).toFixed(0);
+      } else if (selectedCrypto === "Usdc") {
+        calculatedValue = (usdcValue * inputValue).toFixed(0);
+      } else {
+        console.log("Invalid crypto selection");
+      }
+
       currentValueElement.textContent = `≈$${calculatedValue}`;
     };
 
-    moneyInvestInput.addEventListener("input", updateValue);
+    //Calcul la valeur en dollards du solde du compte connecté
+    const accountBalanceUsdValue = () => {
+      const selectedCrypto = document.querySelector(
+        ".select-crypto__input__select"
+      ).textContent;
+      const accountBalance = document.querySelector(
+        ".select-crypto__input__balance-amount"
+      ).textContent;
+      console.log(accountBalance);
+
+      if (selectedCrypto === "Matic") {
+        calculatedValueOfBalance = parseFloat(
+          maticValue * accountBalance
+        ).toFixed(0);
+      } else if (selectedCrypto === "Usdc") {
+        calculatedValueOfBalance = parseFloat(
+          usdcValue * accountBalance
+        ).toFixed(0);
+      } else {
+        console.log("Invalid crypto selection");
+      }
+      accountBalanceValueUsdConvert.textContent = `≈$${calculatedValueOfBalance}`;
+    };
+
+    document
+      .querySelector(".input__field")
+      .addEventListener("input", inputUsdValue);
+
+    const observer = new MutationObserver(accountBalanceUsdValue);
+    const selectedCryptoElement = document.querySelector(
+      ".select-crypto__input__select"
+    );
+    observer.observe(selectedCryptoElement, { childList: true });
+
+    inputUsdValue();
+    accountBalanceUsdValue();
   } catch (error) {
     console.error("Erreur lors de la récupération des données :", error);
   }
 }
 
-//-----------
+//---------------
+// Fonction qui vérifie si l'utilisateur est sur le bon réseau et modifie le fonctionne du bouton en conséquence
+async function checkNetwork() {
+  if (web3) {
+    const chainId = await web3.eth.getChainId();
+    console.log(chainId);
+    connectWalletButton.removeEventListener("click", connectWallet); // une fois connecté l'utilisateur le bouton on retire l'event au click
+    if (chainId !== 137n) {
+      connectWalletButton.innerHTML = "UTILISER LE RÉSEAU";
+      connectWalletButton.addEventListener("click", switchNetwork);
+    } else {
+      connectWalletButton.innerHTML = "TICKET MINIMUM : $500";
+      connectWalletButton.removeEventListener("click", switchNetwork);
+    }
+  }
+}
 
 //------------
+// Fonction qui permet de changer de réseau vers le réseau Polygon
+async function switchNetwork() {
+  try {
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x89" }],
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
+//-----------
 // Gestionnaire d'événements pour le bouton de connexion du portefeuille
-connectWalletButton.addEventListener("click", async () => {
+async function connectWallet() {
   if (typeof window.ethereum !== "undefined") {
+    web3 = new Web3(window.ethereum);
     try {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      if (accounts.length > 0) {
-        const connectedAddress = accounts[0];
-
-        getBalance(connectedAddress); // Call the function with the connected address
-        updateUserInterface();
-        addTokenPurchaseSection();
-        changeInvestButtonText();
-        fetchCryptoValue();
-      }
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+      const accounts = await web3.eth.getAccounts();
+      userAccount = accounts[0];
+      fetchCryptoValue();
+      getBalance();
+      checkNetwork();
+      addTransactionAndDisconnestButtons();
+      addTokenPurchaseSection();
     } catch (error) {
-      console.error("User denied account access:", error);
+      console.error(error);
     }
   } else {
-    connectWalletErrorMessage.innerHTML = "MetaMask n'est pas installé";
+    connectWalletErrorMessage.style.visibility = "visible";
   }
-});
+}
 
+// Ajout du gestionnaire d'événements pour le bouton de connexion
+connectWalletButton.addEventListener("click", connectWallet);
 //--------------
 // Fonction pour récupérer le solde du compte connecté
 
-async function getBalance(address) {
-  try {
-    const balance = await window.ethereum.request({
-      method: "eth_getBalance",
-      params: [address, "latest"],
+function getBalance() {
+  if (userAccount) {
+    web3.eth.getBalance(userAccount).then((balance) => {
+      const formattedBalance = Math.floor(web3.utils.fromWei(balance, "ether"));
+      const accountBalance = document.querySelector(
+        ".select-crypto__input__balance-amount"
+      );
+      accountBalance.textContent = formattedBalance;
+      console.log(formattedBalance, " ETH sur le solde");
     });
-    const balanceInEther = parseInt(balance, 16) / 1e18;
-    console.log("Account balance:", balanceInEther, "ETH");
-  } catch (error) {
-    console.error("Error getting balance:", error);
   }
 }
 
 //--------------
-function updateUserInterface() {
-  const walletInvestSection = document.querySelector(
-    ".invest__section__connect-wallet__text"
-  );
+// Rend visisble les boutons "transtactions" et "se déconnecter" visible
+
+function addTransactionAndDisconnestButtons() {
   walletInvestSection.classList.remove("invest__section__connect-wallet__text");
   walletInvestSection.classList.add("invest__section__connected-wallet");
 
-  const connectedWalletButtons = document.querySelector(
-    ".invest__section__buttons"
-  );
   connectedWalletButtons.style.visibility = "visible";
-
-  connectWalletButton.textContent = "TICKET MINIMUM : 500$";
 }
 
 //-------------
+// Ajout de toute la section qui permet l'achat de Token
+
 function addTokenPurchaseSection() {
-  const walletInvestSection = document.querySelector(
-    ".invest__section__connected-wallet"
-  );
   walletInvestSection.innerHTML = `
    <div class="connected-wallet__token-purchase">
+   <p>Vous investissez en :</p>      
       <div class="connected-wallet__select-crypto__wrapper">
         <div class="select-crypto__input input">
           <p class="select-crypto__input__select">Matic</p>
@@ -113,9 +199,9 @@ function addTokenPurchaseSection() {
         </div>
         <div class="select-crypto__input__wrapper">
           <div class="select-crypto__input__current-value__wrapper">
-            <span>1921</span>
-            <span class="select-crypto__input__current-value--size"
-              >≈$1920</span
+            <span class = "select-crypto__input__balance-amount"></span>
+            <span class="select-crypto__input__balance-value-usd"
+              ></span
             >
           </div>
           <span class="line"></span>
@@ -160,9 +246,10 @@ function addTokenPurchaseSection() {
       </div>
     </div>
     </div>`;
-  //--------
 
+  //--------
   // Fonctionnement de l'input select
+
   const cryptoInput = document.querySelector(
     ".connected-wallet__select-crypto__wrapper"
   );
@@ -187,24 +274,10 @@ function addTokenPurchaseSection() {
   cryptoInput.addEventListener("click", toggleDropdown);
 
   dropdownContent.addEventListener("click", (event) => {
-    const selectedOption = event.target.textContent;
+    let selectedOption = event.target.textContent;
+    InputSelectedCrypto.textContent = selectedOption = event.target.textContent;
     InputSelectedCrypto.textContent = selectedOption;
   });
 }
 
-//----------------------
-
-function changeInvestButtonText() {
-  const moneyInvestInput = document.querySelector(".input__field");
-
-  moneyInvestInput.addEventListener("input", () => {
-    const inputValue = moneyInvestInput.value;
-
-    if (!isNaN(inputValue) && inputValue >= 500) {
-      connectWalletButton.textContent = "INVESTIR";
-    } else {
-      connectWalletButton.textContent = "TICKET MINIMUM : 500$";
-    }
-  });
-}
 //---------------

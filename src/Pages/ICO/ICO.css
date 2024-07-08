@@ -113,7 +113,7 @@ p {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  height: 520px;
+  height: 530px;
 }
 
 .invest__section__stars-img {
@@ -215,16 +215,17 @@ p {
 
 .invest__section__connect-wallet__button {
   cursor: pointer;
-  font-size: 1.3em;
+  font-size: 1.25em;
   font-weight: bold;
-  padding: 10px;
-  width: 50%;
+  padding: 12px;
+  width: 55%;
   background-color: #00ffe6;
   border: 2px solid black;
-  box-shadow: inset 0px 0px 3px #046057;
+  box-shadow: inset 0px 0px 6px #046057;
 }
 
 .invest__section__connect-wallet__error-message {
+  visibility: hidden;
   position: absolute;
   bottom: 6%;
   color: rgb(216, 1, 1);
@@ -349,7 +350,7 @@ p {
   margin-left: 15px;
 }
 
-.select-crypto__input__current-value--size,
+.select-crypto__input__balance-value-usd,
 .money-to-invest__input__wrapper--size {
   font-size: 0.7em;
   color: #c1b69b;
