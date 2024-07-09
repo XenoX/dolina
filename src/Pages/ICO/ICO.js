@@ -2,7 +2,7 @@ import Web3 from "web3";
 let web3;
 let userAccount;
 let chainId;
-let formattedBalance;
+let balanceConvertToEth;
 let calculatedValue;
 let calculatedValueOfBalance;
 
@@ -21,7 +21,7 @@ const connectedWalletButtons = document.querySelector(
 );
 
 //-------------
-//Fonction qui récupère la valeur en dollards et fait le calcul
+//Fonction qui récupère la valeur en dollards des crypto et fait les calculs
 
 async function fetchCryptoValue() {
   try {
@@ -68,21 +68,25 @@ async function fetchCryptoValue() {
       ).textContent;
       const accountBalance = document.querySelector(
         ".select-crypto__input__balance-amount"
-      ).textContent;
+      );
       console.log(accountBalance);
 
-      if (selectedCrypto === "Matic") {
-        calculatedValueOfBalance = parseFloat(
-          maticValue * accountBalance
-        ).toFixed(0);
-      } else if (selectedCrypto === "Usdc") {
-        calculatedValueOfBalance = parseFloat(
-          usdcValue * accountBalance
-        ).toFixed(0);
-      } else {
-        console.log("Invalid crypto selection");
-      }
-      accountBalanceValueUsdConvert.textContent = `≈$${calculatedValueOfBalance}`;
+      setTimeout(() => {
+        if (selectedCrypto === "Matic") {
+          calculatedValueOfBalance = parseFloat(
+            maticValue * accountBalance.textContent
+          ).toFixed(0);
+        } else if (selectedCrypto === "Usdc") {
+          calculatedValueOfBalance = parseFloat(
+            usdcValue * accountBalance.textContent
+          ).toFixed(0);
+        } else {
+          console.log("Invalid crypto selection");
+        }
+        accountBalanceValueUsdConvert.textContent = `≈$${calculatedValueOfBalance}`;
+
+        inputUsdValue();
+      }, 400);
     };
 
     document
@@ -102,19 +106,34 @@ async function fetchCryptoValue() {
   }
 }
 
+function connectButtonchange() {
+  const moneyInvestInput = document.querySelector(".input__field");
+  connectWalletButton.textContent = "TICKET MINIMUM : $500";
+
+  moneyInvestInput.addEventListener("input", () => {
+    const inputValue = moneyInvestInput.value;
+
+    if (inputValue >= 500) {
+      connectWalletButton.textContent = "INVESTIR";
+    } else {
+      connectWalletButton.textContent = "TICKET MINIMUM : $500";
+    }
+  });
+}
+
 //---------------
 // Fonction qui vérifie si l'utilisateur est sur le bon réseau et modifie le fonctionne du bouton en conséquence
+
 async function checkNetwork() {
   if (web3) {
-    const chainId = await web3.eth.getChainId();
+    let chainId = await web3.eth.getChainId();
     console.log(chainId);
-    connectWalletButton.removeEventListener("click", connectWallet); // une fois connecté l'utilisateur le bouton on retire l'event au click
+
     if (chainId !== 137n) {
-      connectWalletButton.innerHTML = "UTILISER LE RÉSEAU";
+      connectWalletButton.textContent = "UTILISER LE RÉSEAU POLYGON";
       connectWalletButton.addEventListener("click", switchNetwork);
-    } else {
-      connectWalletButton.innerHTML = "TICKET MINIMUM : $500";
-      connectWalletButton.removeEventListener("click", switchNetwork);
+    } else if (chainId === 137n) {
+      connectButtonchange();
     }
   }
 }
@@ -127,13 +146,17 @@ async function switchNetwork() {
       method: "wallet_switchEthereumChain",
       params: [{ chainId: "0x89" }],
     });
+    connectButtonchange();
   } catch (error) {
     console.error(error);
   }
 }
 
+connectWalletButton.addEventListener("click", connectWallet);
+
 //-----------
-// Gestionnaire d'événements pour le bouton de connexion du portefeuille
+// Fonction qui connecte l'utilisateur
+
 async function connectWallet() {
   if (typeof window.ethereum !== "undefined") {
     web3 = new Web3(window.ethereum);
@@ -152,22 +175,23 @@ async function connectWallet() {
   } else {
     connectWalletErrorMessage.style.visibility = "visible";
   }
+  connectWalletButton.removeEventListener("click", connectWallet); // l'utilisateur est connecté donc on supprime la fonctionnalité du button
 }
 
-// Ajout du gestionnaire d'événements pour le bouton de connexion
-connectWalletButton.addEventListener("click", connectWallet);
 //--------------
 // Fonction pour récupérer le solde du compte connecté
 
 function getBalance() {
   if (userAccount) {
     web3.eth.getBalance(userAccount).then((balance) => {
-      const formattedBalance = Math.floor(web3.utils.fromWei(balance, "ether"));
+      const balanceConvertToEth = Math.floor(
+        web3.utils.fromWei(balance, "ether")
+      );
       const accountBalance = document.querySelector(
         ".select-crypto__input__balance-amount"
       );
-      accountBalance.textContent = formattedBalance;
-      console.log(formattedBalance, " ETH sur le solde");
+      accountBalance.textContent = balanceConvertToEth;
+      console.log(balanceConvertToEth, " ETH sur le solde");
     });
   }
 }
@@ -178,7 +202,6 @@ function getBalance() {
 function addTransactionAndDisconnestButtons() {
   walletInvestSection.classList.remove("invest__section__connect-wallet__text");
   walletInvestSection.classList.add("invest__section__connected-wallet");
-
   connectedWalletButtons.style.visibility = "visible";
 }
 
