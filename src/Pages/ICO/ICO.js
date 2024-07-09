@@ -1,8 +1,6 @@
 import Web3 from "web3";
 let web3;
 let userAccount;
-let chainId;
-let balanceConvertToEth;
 let calculatedValue;
 let calculatedValueOfBalance;
 
