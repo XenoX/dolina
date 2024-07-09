@@ -1,6 +1,8 @@
-import Web3 from "web3";
+import { Web3 } from "web3";
 let web3;
 let userAccount;
+let chainId;
+let formattedBalance;
 let calculatedValue;
 let calculatedValueOfBalance;
 
