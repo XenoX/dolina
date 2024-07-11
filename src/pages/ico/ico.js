@@ -204,69 +204,12 @@ function addTransactionAndDisconnestButtons() {
 }
 
 //-------------
-// Ajout de toute la section qui permet l'achat de Token
+// Ajout de la section qui permet l'achat de Token
 
 function addTokenPurchaseSection() {
-  walletInvestSection.innerHTML = `
-   <div class="connected-wallet__token-purchase">
-   <p>Vous investissez en :</p>      
-      <div class="connected-wallet__select-crypto__wrapper">
-        <div class="select-crypto__input input">
-          <p class="select-crypto__input__select">Matic</p>
-          <ul class="select-crypto__input__dropdown-content">
-            <li>Matic</li>
-            <li>Usdc</li>
-          </ul>
-        </div>
-        <div class="select-crypto__input__wrapper">
-          <div class="select-crypto__input__current-value__wrapper">
-            <span class = "select-crypto__input__balance-amount"></span>
-            <span class="select-crypto__input__balance-value-usd"
-              ></span
-            >
-          </div>
-          <span class="line"></span>
-          <span class="select-crypto__input__down-arrow">
-            <img
-              src="../../assets/images/down-arrow-img.png"
-              alt="flèche blanche pointant vers le bas"
-              class="select-crypto__input__dropdown-arrow"
-          /></span>
-        </div>
-      </div>
-
-      <div class="connected-wallet__money-to-invest__wrapper">
-        <label for="money-to-invest">Montant investi :</label>
-        <div class="money-to-invest__input input">
-          <input
-            type="number"
-            value="0"
-            id="money-to-invest"
-            class="input__field"
-          />
-          <div class="money-to-invest__input__wrapper">
-            <span class="money-to-invest__input__wrapper--size">≈$0</span>
-            <button class="money-to-invest__input__wrapper__button">MAX</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="connected-wallet__token-amount">
-      <p>Vous recevez en $ANZ</p>
-      <div class="token-amount__wrapper">
-        <p>0</p>
-        <img
-          src="../../assets/images/TOKEN-color.png"
-          alt="Logo du jeux Anazir sous forme d'une piece de monnaie"
-        />
-      </div>
-      <div class="token-amount__max-amount__wrapper">
-        <span class="token-amount__max-amount__line"></span>
-        <p class="token-amount__max-amount">15 000 000</p>
-        <p class="token-amount__max-amount__info">Token alloués pressed</p>
-      </div>
-    </div>
-    </div>`;
+  const template = document.getElementById("purchase-token-section").content;
+  walletInvestSection.innerHTML = "";
+  walletInvestSection.appendChild(template.cloneNode(true));
 
   //--------
   // Fonctionnement de l'input select
@@ -286,8 +229,6 @@ function addTokenPurchaseSection() {
   );
 
   function toggleDropdown() {
-    let isOpen = false;
-    isOpen = !isOpen;
     dropdownContent.classList.toggle("show");
     downArrow.classList.toggle("rotate");
   }
@@ -296,9 +237,7 @@ function addTokenPurchaseSection() {
 
   dropdownContent.addEventListener("click", (event) => {
     let selectedOption = event.target.textContent;
-    InputSelectedCrypto.textContent = selectedOption = event.target.textContent;
     InputSelectedCrypto.textContent = selectedOption;
   });
 }
-
 //---------------

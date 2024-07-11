@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./main.css" />
+    <link rel="stylesheet" href="./ico.css" />
     <link rel="stylesheet" href="https://use.typekit.net/uog8olw.css" />
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
@@ -97,6 +97,73 @@
             Pour investir,<br />
             connectez votre wallet
           </p>
+          <template id="purchase-token-section">
+            <div class="connected-wallet__token-purchase">
+              <p>Vous investissez en :</p>
+              <div class="connected-wallet__select-crypto__wrapper">
+                <div class="select-crypto__input input">
+                  <p class="select-crypto__input__select">Matic</p>
+                  <ul class="select-crypto__input__dropdown-content">
+                    <li>Matic</li>
+                    <li>Usdc</li>
+                  </ul>
+                </div>
+                <div class="select-crypto__input__wrapper">
+                  <div class="select-crypto__input__current-value__wrapper">
+                    <span class="select-crypto__input__balance-amount"></span>
+                    <span
+                      class="select-crypto__input__balance-value-usd"
+                    ></span>
+                  </div>
+                  <span class="line"></span>
+                  <span class="select-crypto__input__down-arrow">
+                    <img
+                      src="../../assets/images/down-arrow-img.png"
+                      alt="flèche blanche pointant vers le bas"
+                      class="select-crypto__input__dropdown-arrow"
+                    />
+                  </span>
+                </div>
+              </div>
+
+              <div class="connected-wallet__money-to-invest__wrapper">
+                <label for="money-to-invest">Montant investi :</label>
+                <div class="money-to-invest__input input">
+                  <input
+                    type="number"
+                    value="0"
+                    id="money-to-invest"
+                    class="input__field"
+                  />
+                  <div class="money-to-invest__input__wrapper">
+                    <span class="money-to-invest__input__wrapper--size"
+                      >≈$0</span
+                    >
+                    <button class="money-to-invest__input__wrapper__button">
+                      MAX
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="connected-wallet__token-amount">
+              <p>Vous recevez en $ANZ</p>
+              <div class="token-amount__wrapper">
+                <p>0</p>
+                <img
+                  src="../../assets/images/TOKEN-color.png"
+                  alt="Logo du jeux Anazir sous forme d'une piece de monnaie"
+                />
+              </div>
+              <div class="token-amount__max-amount__wrapper">
+                <span class="token-amount__max-amount__line"></span>
+                <p class="token-amount__max-amount">15 000 000</p>
+                <p class="token-amount__max-amount__info">
+                  Token alloués pressed
+                </p>
+              </div>
+            </div>
+          </template>
         </div>
         <button class="invest__section__connect-wallet__button">
           CONNECTEZ SON WALLET
@@ -113,6 +180,6 @@
       </div>
     </div>
   </body>
-  <script type="module" src="./main.js"></script>
+  <script type="module" src="./ico.js"></script>
   <script type="module" src="../../components/reusable-component.js"></script>
 </html>

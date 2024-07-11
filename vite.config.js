@@ -6,7 +6,8 @@ export default {
   build: {
     rollupOptions: {
       input: {
-        ico: resolve(__dirname, "src/Pages/ICO/index.html"),
+        index: resolve(__dirname, "/index.html"),
+        ico: resolve(__dirname, "src/pages/ico/index.html"),
         footer: resolve(__dirname, "src/components/footer/footer.html"),
         navbar: resolve(__dirname, "src/components/navbar/navbar.html"),
       },
