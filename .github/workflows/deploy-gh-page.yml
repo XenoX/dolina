@@ -2,7 +2,7 @@ name: Deploy on Github Pages
 
 on:
   push:
-    branches: [web3.js]
+    branches: [main]
 
 jobs:
   build-and-deploy:
