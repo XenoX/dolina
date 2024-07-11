@@ -19,6 +19,7 @@
     "web3modal": "^1.9.12"
   },
   "devDependencies": {
-    "@babel/plugin-transform-private-methods": "^7.24.7"
+    "@babel/plugin-transform-private-methods": "^7.24.7",
+    "vite-plugin-preload": "^0.4.0"
   }
 }

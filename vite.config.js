@@ -1,8 +1,14 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
+import preload from "vite-plugin-preload";
 
 export default {
   root: "",
+  plugins: [
+    preload({
+      match: "src/assets/images/down-arrow-img.png",
+    }),
+  ],
   build: {
     rollupOptions: {
       input: {
