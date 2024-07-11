@@ -1,16 +1,16 @@
 import { defineConfig } from "vite";
+import { resolve } from "path";
 
-export default defineConfig({
-  root: ".",
+export default {
+  root: "",
   build: {
-    outDir: "dist",
     rollupOptions: {
       input: {
-        main: "src/main.js",
+        ico: resolve(__dirname, "src/Pages/ICO/index.html"),
+      },
+      output: {
+        dir: resolve(__dirname, "dist"),
       },
     },
   },
-  define: {
-    global: "window",
-  },
-});
+};

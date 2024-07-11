@@ -561,6 +561,7 @@ p {
   }
 
   h1 {
+    font-size: 2.6em;
     text-align: start;
     width: 100%;
   }
@@ -601,6 +602,10 @@ p {
   }
   .invest__section__prices {
     flex-direction: column;
+  }
+
+  .invest__section__prices__wrapper {
+    width: 93%;
   }
 
   .invest__section__buttons {
