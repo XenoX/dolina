@@ -26,7 +26,8 @@ footer {
   gap: 15px;
 }
 
-ul {
+.footer__nav__ul,
+.footer__social-media-logo__ul {
   padding: 0;
   display: flex;
   align-items: center;
@@ -85,9 +86,51 @@ ul a:hover {
   display: flex;
   align-items: center;
   gap: 15px;
+  font-weight: lighter;
 }
 
 .footer-under-line-section_logos {
   display: flex;
   gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .footer__nav__ul {
+    gap: 11px;
+  }
+  .footer-upper-line-section ul a {
+    font-size: 1.05em;
+  }
+
+  .footer-legal-info {
+    gap: 10px;
+    font-size: 0.8em;
+  }
+  .footer-under-line-section_logos {
+    gap: 14px;
+    height: 70px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer__nav__ul {
+    flex-direction: column;
+    gap: 35px;
+  }
+  .footer__social-media-logo__ul {
+    gap: 15px;
+  }
+  .footer-under-line-section {
+    flex-direction: column;
+    gap: 35px;
+  }
+  .footer-legal-info {
+    flex-direction: column;
+    gap: 20px;
+    font-size: 0.9em;
+  }
+  .footer-under-line-section_logos {
+    height: 100px;
+    justify-content: center;
+  }
 }

@@ -16,14 +16,19 @@ header {
   padding-left: 50px;
 }
 
-ul {
+.navbar__wrapper {
+  display: flex;
+  gap: 15px;
+}
+
+header ul {
   display: flex;
   align-items: center;
   list-style: none;
   gap: 30px;
 }
 
-ul a {
+header ul a {
   letter-spacing: 0.1em;
   display: flex;
   align-items: center;
@@ -34,7 +39,7 @@ ul a {
   transition: color 0.3s ease-in-out;
 }
 
-ul a:hover {
+header ul a:hover {
   color: #00ffe6;
 }
 
@@ -43,7 +48,95 @@ ul a:hover {
   margin-bottom: 1px;
 }
 
-.download-game-app-logos img {
+.navbar__app-logos img {
   margin-left: 5px;
   height: 40px;
+}
+
+@media (max-width: 1024px) {
+  header ul {
+    opacity: 0;
+    font-size: 1.5em;
+    z-index: -3;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    padding: 0;
+    background-color: rgb(0 0 0 / 90%);
+    position: absolute;
+    top: 0%;
+    left: 0px;
+    height: 101vh;
+    position: fixed;
+  }
+
+  header ul.active {
+    opacity: 1;
+    pointer-events: auto; /* Enable interaction when visible */
+  }
+
+  .navbar {
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .navbar__app-logos {
+    display: flex;
+    height: 39px;
+    gap: 10px;
+  }
+
+  .navbar-mobile {
+    display: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #bebcb7;
+    border-radius: 3px;
+  }
+
+  .navbar-mobile__lines {
+    width: 20px;
+    height: 3px;
+    background-color: #e7e3db;
+    transition: transform 0.5s, opacity 0.5s;
+  }
+
+  .line1 {
+    top: 15px;
+  }
+
+  .line2 {
+    top: 22px;
+  }
+
+  .line3 {
+    top: 29px;
+  }
+
+  .container.cross .line1 {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .container.cross .line2 {
+    opacity: 0;
+  }
+
+  .container.cross .line3 {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar__app-logos a {
+    display: none;
+  }
 }
