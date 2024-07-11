@@ -568,6 +568,8 @@ p {
 
   h2 {
     text-align: center;
+    font-size: 1.2em;
+    padding: 0px 15px;
   }
 
   .background-logo {
@@ -582,7 +584,7 @@ p {
   .invest__section {
     height: 100%;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     width: 97%;
   }
 
@@ -591,7 +593,8 @@ p {
   }
 
   .invest__section__token-img {
-    height: 73%;
+    height: 350px;
+    top: 12%;
   }
 
   .information__section__buttons {
@@ -635,5 +638,9 @@ p {
 
   .connected-wallet__token-amount {
     width: 91%;
+  }
+
+  .invest__section__connect-wallet__error-message {
+    bottom: 10px;
   }
 }
