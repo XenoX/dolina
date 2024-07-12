@@ -173,7 +173,7 @@ async function connectWallet() {
   } else {
     connectWalletErrorMessage.style.visibility = "visible";
   }
-
+  connectWalletButton.removeEventListener("click", connectWallet);
   // l'utilisateur est connecté donc on supprime la fonctionnalité du button
 }
 
@@ -241,28 +241,3 @@ function addTokenPurchaseSection() {
   });
 }
 //---------------
-
-const disconnectWalletButton = document.querySelector(
-  ".invest__section__buttons__disconnect"
-);
-
-// Fonction de déconnexion
-function disconnectWallet() {
-  userAccount = null;
-  web3 = null;
-
-  // Réinitialiser l'affichage et masquer les boutons connectés
-  walletInvestSection.classList.remove("invest__section__connected-wallet");
-  walletInvestSection.classList.add("invest__section__connect-wallet__text");
-  connectedWalletButtons.style.visibility = "hidden";
-  connectWalletButton.textContent = "CONNECTEZ SON WALLET";
-
-  // Réinitialiser les éléments spécifiques au portefeuille connecté
-  walletInvestSection.innerHTML = `
-    <p>Pour investir, </br>
-     connectez votre wallet</p>
- `;
-}
-
-// Ajouter l'événement de clic au bouton de déconnexion
-disconnectWalletButton.addEventListener("click", disconnectWallet);
