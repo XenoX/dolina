@@ -159,16 +159,9 @@ header ul a:hover {
     top: 29px;
   }
 
-  .container.cross .line1 {
-    transform: translateY(7px) rotate(45deg);
-  }
-
-  .container.cross .line2 {
-    opacity: 0;
-  }
-
-  .container.cross .line3 {
-    transform: translateY(-7px) rotate(-45deg);
+  .redirection_arrow {
+    height: 22px;
+    margin-bottom: 4px;
   }
 }
 

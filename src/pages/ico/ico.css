@@ -482,6 +482,15 @@ p {
   transition: transform 0.2s ease;
 }
 
+@media (max-width: 1250px) {
+  .invest__section__connect-wallet__button {
+    width: 68%;
+  }
+  .token-amount__max-amount {
+    font-size: 2.3em;
+  }
+}
+
 @media (max-width: 1024px) {
   body {
     flex-direction: column;
@@ -499,6 +508,7 @@ p {
     font-size: 2.8em;
     width: 95%;
   }
+
   h2 {
     font-size: 1.3em;
   }

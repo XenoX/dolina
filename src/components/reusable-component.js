@@ -76,7 +76,7 @@ function navbar() {
         const googleLogoLink = document.createElement("a");
         googleLogoLink.href =
           "https://play.google.com/store/apps/details?id=com.Threevision.AnazirGame";
-        googleLogo.src = "../../assets/images/google-store-logo.png";
+        googleLogo.src = "../../../assets/google-store-logo.png";
         googleLogo.alt = "Logo du google play store";
         googleLogo.classList.add("google-logo"); // Ajout d'une classe pour vérification future
         googleLogoLink.appendChild(googleLogo);
@@ -86,7 +86,7 @@ function navbar() {
         appleLogoLink.href =
           "https://apps.apple.com/us/app/anazir-td-arena-tower-defense/id6450485930?uo=2";
         const appleLogo = document.createElement("img");
-        appleLogo.src = "../../assets/images/apple-store-logo.png";
+        appleLogo.src = "../../../assets/apple-store-logo.png";
         appleLogo.alt = "Logo de l'apple store";
         appleLogo.classList.add("apple-logo"); // Ajout d'une classe pour vérification future
         appleLogoLink.appendChild(appleLogo);
