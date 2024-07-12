@@ -77,7 +77,7 @@ async function fetchCryptoValue() {
         } else if (selectedCrypto === "Usdc") {
           calculatedValueOfBalance = parseFloat(
             usdcValue * accountBalance.textContent
-          ).toFixed(0);
+          ).toFixed();
         } else {
           console.log("Invalid crypto selection");
         }
@@ -173,7 +173,8 @@ async function connectWallet() {
   } else {
     connectWalletErrorMessage.style.visibility = "visible";
   }
-  connectWalletButton.removeEventListener("click", connectWallet); // l'utilisateur est connecté donc on supprime la fonctionnalité du button
+
+  // l'utilisateur est connecté donc on supprime la fonctionnalité du button
 }
 
 //--------------
@@ -182,13 +183,12 @@ async function connectWallet() {
 function getBalance() {
   if (userAccount) {
     web3.eth.getBalance(userAccount).then((balance) => {
-      const balanceConvertToEth = Math.floor(
-        web3.utils.fromWei(balance, "ether")
-      );
+      const balanceConvertToEth = web3.utils.fromWei(balance, "ether");
+      const balanceFixed = parseFloat(balanceConvertToEth).toFixed(4);
       const accountBalance = document.querySelector(
         ".select-crypto__input__balance-amount"
       );
-      accountBalance.textContent = balanceConvertToEth;
+      accountBalance.textContent = balanceFixed;
       console.log(balanceConvertToEth, " ETH sur le solde");
     });
   }
@@ -241,3 +241,28 @@ function addTokenPurchaseSection() {
   });
 }
 //---------------
+
+const disconnectWalletButton = document.querySelector(
+  ".invest__section__buttons__disconnect"
+);
+
+// Fonction de déconnexion
+function disconnectWallet() {
+  userAccount = null;
+  web3 = null;
+
+  // Réinitialiser l'affichage et masquer les boutons connectés
+  walletInvestSection.classList.remove("invest__section__connected-wallet");
+  walletInvestSection.classList.add("invest__section__connect-wallet__text");
+  connectedWalletButtons.style.visibility = "hidden";
+  connectWalletButton.textContent = "CONNECTEZ SON WALLET";
+
+  // Réinitialiser les éléments spécifiques au portefeuille connecté
+  walletInvestSection.innerHTML = `
+    <p>Pour investir, </br>
+     connectez votre wallet</p>
+ `;
+}
+
+// Ajouter l'événement de clic au bouton de déconnexion
+disconnectWalletButton.addEventListener("click", disconnectWallet);
