@@ -53,8 +53,18 @@ header ul a:hover {
   height: 40px;
 }
 
+.navbar__mobile-menu__close-item {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .navbar__app-logos {
+    width: 150px;
+  }
+}
+
 @media (max-width: 1024px) {
-  header ul {
+  .navbar__mobile-menu {
     opacity: 0;
     font-size: 1.5em;
     z-index: -3;
@@ -65,17 +75,42 @@ header ul a:hover {
     align-items: center;
     gap: 35px;
     padding: 0;
-    background-color: rgb(0 0 0 / 90%);
-    position: absolute;
-    top: 0%;
-    left: 0px;
-    height: 101vh;
+    background-color: rgba(0, 0, 0, 0.925);
     position: fixed;
+    top: -20%;
+    left: 0;
+    height: 100%;
+    transition:
+      opacity 0.3s ease-out,
+      top 0.3s ease-out,
+      z-index 0s ease-out 0.3s,
+      background-color 0.3s ease-out;
   }
 
-  header ul.active {
+  .navbar__mobile-menu.active {
     opacity: 1;
-    pointer-events: auto; /* Enable interaction when visible */
+    z-index: 3;
+    top: 0;
+    transition:
+      opacity 0.3s ease-out,
+      top 0.3s ease-out,
+      z-index 0s ease-out,
+      background-color 0.3s ease-out 0.3s;
+  }
+
+  .navbar__mobile-menu__close-item {
+    position: absolute;
+    bottom: 10%;
+    display: flex;
+    height: 22px;
+    padding: 9px;
+    border: 3px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .navbar__app-logos {
+    width: auto;
   }
 
   .navbar {
@@ -107,7 +142,9 @@ header ul a:hover {
     width: 20px;
     height: 3px;
     background-color: #e7e3db;
-    transition: transform 0.5s, opacity 0.5s;
+    transition:
+      transform 0.5s,
+      opacity 0.5s;
   }
 
   .line1 {

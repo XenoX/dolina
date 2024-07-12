@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import { resolve } from "path";
 import preload from "vite-plugin-preload";
 
-export default {
+export default defineConfig({
   root: "",
   plugins: [
     preload({
@@ -21,4 +21,4 @@ export default {
       },
     },
   },
-};
+});
